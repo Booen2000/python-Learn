@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 import re
 
+<<<<<<< HEAD
 res = requests.get(' https://movie.douban.com/',
                    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36"})
 
@@ -19,15 +20,95 @@ result = etree.tostring(html, encoding='utf-8') #转换为字节类型
 
 html_data = html.xpath('//li[@class="title"]/a/text()')
 '''for i in html_data:
+=======
+def Tutorial():
+    # url= 'https://market.douban.com/book/?type=topic&page=3'
+    res = requests.get(' https://movie.douban.com/',
+                       headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36"})
+
+    # root = etree.Element(res)
+    html = etree.HTML(res.text); # 只是一个tag，文档
+    result = etree.tostring(html, encoding='utf-8') #转换为字节类型
+
+    # 从HTML文件提取数据
+    # 方法一，通过xpath寻找tag
+    # 将数据写入文件，以备xpath
+    #with open('C:\Users\87936\Pycharm\project_11_3\venv\t','w') as f:
+    #    f.write(result)
+
+    html_data = html.xpath('//li[@class="title"]/a/text()')
+'''
+循环输出的例子
+for i in html_data:
+>>>>>>> 5c5478f (Initial commit)
     print(i.text)
 
 print(type(html))
 print(type(result)) 
+<<<<<<< HEAD
 print(root)'''
 
 # 方法二：通过BeautifulSoup寻找tag
 
 soup = BeautifulSoup(result)
+=======
+print(root)
+'''
+
+
+'''
+format的使用例子
+for i in range(1,5):
+    print("https://market.douban.com/book/?type=topic&page={}".format(i))
+
+urls = ['https://movie.douban.com/top250?start={}&filter='.format(i) for i in range(0,250,25)]
+print(urls)
+'''
+baseurl = 'https://market.douban.com'
+
+response = requests.get(
+    url='https://www.dushu.com/book/1001.html',
+    headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36"}
+)
+page = etree.HTML(response.text)
+print(page.xpath('//a/text()'))
+
+def request(num):
+    response = requests.get(
+        url='https://market.douban.com/book/?type=topic&page={}&page_num=18&'.format(num),
+        headers={
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36"}
+    )
+    page = etree.HTML(response.text)
+    return page
+
+def Initial():
+    page = request(1)
+    print(page.xpath('//a[@class=current]'))
+    is_next_page = page.xpath("/html/body/div[3]/div[4]")
+    # 找不到后一页！！
+    print(is_next_page)
+    while is_next_page:
+        # 这里做页面的数据处理
+        current = page.xpath("//*[@id='paginator']/a[@class='current']/text()")
+        request(current+1)
+'''
+    items = {}
+
+    lis = HTML.xpath("//ul[@class='special-list']/li")
+    ul = HTML.xpath("//a[class='special-item']/h3")
+
+    for i in lis:
+        items['title'] = i.xpath("a/h3/text()")
+        items['href'] = i.xpath('a/@href')
+        print(i.xpath("a/@href"))
+'''
+
+# 方法二：通过BeautifulSoup寻找tag
+
+#soup = BeautifulSoup(result)
+>>>>>>> 5c5478f (Initial commit)
 
 def childTest(soup):
     print(soup.li.contents[1].contents)  # contents[0]是\n，contents包含\n
@@ -132,6 +213,9 @@ def cssTest(soup):
     test[0].string = 'wubw'
     print(test)
 
+<<<<<<< HEAD
 print(soup,"\n11111111111")
 
 cssTest(soup)
+=======
+>>>>>>> 5c5478f (Initial commit)
