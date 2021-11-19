@@ -18,7 +18,7 @@ def request(num):
     page = etree.HTML(response.text)
     return page
 
-def detail(page,current_page):
+def detail(page, current_page):
     item = {}
     lis = page.xpath('//div[@class="bookslist"]/ul/li')
     urls = []
